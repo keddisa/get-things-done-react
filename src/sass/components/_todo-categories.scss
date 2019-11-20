@@ -1,0 +1,22 @@
+.todo-categories {
+    display: grid;
+    margin: 3rem;
+    grid-column: content-start/ content-end;
+    grid-template-rows: min-content min-content;
+    grid-gap: 4rem;
+    justify-content: center;
+}
+
+.category-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 0.2fr));
+    grid-gap: 4rem;
+    justify-content: center;
+}
+
+.category-add {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+    justify-content: center;
+}

@@ -1,24 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Router, Route } from 'react-router-dom';
+
 import './App.css';
 
+import history from './history';
+
+import Header from './components/header';
+import Navbar from './components/navbar';
+import TodoList from './components/todo-list';
+import TodoCategories from './components/todo-categories';
+import TodoForm from './components/todo-form';
+import DeleteTask from './components/delete-task';
+
 function App() {
+  const Main = () => {
+    return(<React.Fragment>
+      <Navbar />
+      <Header />
+      <TodoForm />
+      <TodoCategories />
+      <TodoList />
+    </React.Fragment>)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router history={history}>
+        <Route path="/" exact component={Main} />
+        <Route path="/delete/:id" exact component={DeleteTask} />
+      </Router>
     </div>
   );
 }

@@ -1,0 +1,50 @@
+.modal-main {
+    display: grid;
+    grid-column: content-start / content-end;
+    grid-template-columns: 1fr 20rem 1fr;
+    grid-template-rows: 1fr 15rem 1fr;
+    background-color: transparent;
+}
+
+.modal-box {
+    background-color: lightgray;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    border-radius: 1rem;
+}
+
+.modal-text {
+    align-self: center;
+    justify-self: center;
+    padding: 1rem; 
+}
+
+.modal-buttons {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 1rem;
+    align-self: center;
+    justify-self: center;
+    padding-bottom: 2rem;
+    padding-right: 1rem;
+}
+
+.modal-yes {
+    width: 4rem;
+    height: 3rem;
+    justify-self: center;
+    cursor: pointer;
+    border-radius: 3px;
+    text-align: center
+}
+
+.modal-no {
+    width: 4rem;
+    height: 3rem;
+    justify-self: center;
+    cursor: pointer;
+    border-radius: 3px; 
+}
+

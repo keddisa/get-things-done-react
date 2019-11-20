@@ -1,0 +1,10 @@
+.todo-list{
+    grid-column: content-start / content-end;
+    display: grid;
+    grid-template-rows: min-content min-content min-content min-content;
+    grid-gap: 2rem;
+}
+
+.remove-category-button {
+    grid-column: content-start / content-end;
+}
