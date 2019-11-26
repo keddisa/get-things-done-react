@@ -8,14 +8,14 @@ import history from '../history';
 const DeleteTask = (props) => {
     const renderActions = () => {
         return (
-            <div className="modal-buttons">
-                <button className="modal-yes button-primary-dark" onClick={()=>props.deleteTask(props.match.params.id)}>
+            <React.Fragment>
+                <button className="modal-yes button-todo-dark" onClick={()=>props.deleteTask(props.match.params.id)}>
                     Yes
                 </button>
-                <button className="modal-no button-primary-dark" onClick={()=>history.push('/')}>
+                <button className="modal-no button-todo-light" onClick={()=>history.push('/')}>
                     No
                 </button>
-            </div>
+            </ React.Fragment>
         )
     }
 

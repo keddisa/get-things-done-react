@@ -1,8 +1,14 @@
 .header {
+    background-image: linear-gradient(to right bottom, rgba($color-primary-medium, .6), rgba($color-primary-dark, .6)), url(images/header-img.jpg);
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    grid-template-rows: 1fr min-content 1fr 1fr;
     grid-column: content-start / content-end;
     text-align: center;
-}
-
-.header {
     font-size: 4rem;
+    color: $color-primary-dark-inverted-lighter;
+}
+.header-text{
+    grid-row: 2 / 3;
 }

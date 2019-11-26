@@ -14,7 +14,7 @@ body {
 .App {
   display: grid;
   grid-template-columns: [full-start] 1fr [content-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [content-end] 1fr [full-end];
-  grid-template-rows: min-content 55vh repeat(10, min-content); }
+  grid-template-rows: min-content 80vh repeat(10, min-content); }
 
 .button-todo-light {
   background-color: #d5c798;
@@ -59,24 +59,81 @@ a {
   text-align: center; }
 
 .header {
+  background-image: linear-gradient(to right bottom, rgba(134, 139, 177, 0.6), rgba(42, 56, 103, 0.6)), url(images/header-img.jpg);
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  grid-template-rows: 1fr min-content 1fr 1fr;
   grid-column: content-start / content-end;
-  text-align: center; }
+  text-align: center;
+  font-size: 4rem;
+  color: #e4dcbe; }
 
-.header {
-  font-size: 4rem; }
+.header-text {
+  grid-row: 2 / 3; }
 
-.navbar {
+.nav-bar {
+  display: grid;
   grid-column: content-start / content-end;
-  justify-items: center;
-  align-content: center; }
+  grid-template-columns: 30rem 1fr 30rem;
+  z-index: 999;
+  max-height: 0rem;
+  width: 100%;
+  background: none;
+  overflow: hidden;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  top: -100px;
+  margin-top: 1rem;
+  opacity: 0; }
+
+.stickybar {
+  display: grid;
+  grid-column: content-start / content-end;
+  grid-template-columns: 30rem 1fr max-content;
+  z-index: 999;
+  width: 100%;
+  padding: 1rem 2rem;
+  overflow: hidden;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  top: -100px;
+  margin-top: 1rem;
+  opacity: 0;
+  position: sticky;
+  max-height: 4rem;
+  background-color: rgba(255, 255, 255, 0.93);
+  opacity: 1;
+  top: 1rem;
+  margin-top: 1rem;
+  border-bottom: 1px solid gainsboro; }
+
+.nav-logo {
+  width: 4rem;
+  margin-bottom: 1rem;
+  align-self: top; }
+
+.nav-auth {
+  grid-column-end: -1;
+  padding: .7rem 0;
+  margin-right: 3rem;
+  color: #888888;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  align-self: top;
+  cursor: pointer;
+  justify-self: right; }
 
 .todo-list {
   grid-column: content-start / content-end;
   display: grid;
-  grid-template-rows: min-content min-content min-content min-content;
-  grid-gap: 2rem; }
+  grid-template-columns: [full-start] 1fr [content-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [content-end] 1fr [full-end];
+  grid-template-rows: min-content;
+  grid-gap: 2rem;
+  align-content: center;
+  justify-items: center; }
 
-.remove-category-button {
+.todo-list-button {
   grid-column: content-start / content-end; }
 
 .todo-card {
@@ -86,7 +143,8 @@ a {
   grid-template-rows: min-content;
   grid-column: content-start / content-end;
   padding: 3rem;
-  background-color: #efead8; }
+  background-color: #e4dcbe;
+  border-radius: 1.2rem; }
 
 .todo-text {
   display: grid;
@@ -142,21 +200,29 @@ a {
   display: grid;
   margin: 3rem;
   grid-column: content-start/ content-end;
+  grid-template-columns: [content-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [content-end];
   grid-template-rows: min-content min-content;
   grid-gap: 4rem;
   justify-content: center; }
 
 .category-buttons {
   display: grid;
+  grid-column: content-start / content-end;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 0.2fr));
   grid-gap: 4rem;
   justify-content: center; }
 
 .category-add {
+  grid-column: content-start / content-end;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 2rem;
-  justify-content: center; }
+  grid-template-columns: 1fr min-content min-content 1fr;
+  grid-gap: 2rem; }
+
+.field-add-category {
+  grid-column: 2 / 3; }
+
+.button-add-category {
+  grid-column: 3 / 4; }
 
 .todo-form {
   margin: 2rem 5rem;
@@ -187,20 +253,32 @@ a {
   border: 1px solid #881600;
   grid-column-start: span 3; }
 
+.footer {
+  background-color: #393f4d;
+  grid-column: content-start / content-end;
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  padding: 4rem 2rem;
+  margin-top: 2rem; }
+
 .modal-main {
   display: grid;
   grid-column: content-start / content-end;
   grid-template-columns: 1fr 20rem 1fr;
-  grid-template-rows: 1fr 15rem 1fr;
+  grid-template-rows: 1fr 15rem 1fr 1fr;
   background-color: transparent; }
 
 .modal-box {
-  background-color: lightgray;
+  background-color: #e4dcbe;
   grid-column: 2 / 3;
-  grid-row: 2 / 3;
+  grid-row: 3 / 4;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  border-radius: 1rem; }
+  border-radius: 1rem;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: center; }
 
 .modal-text {
   align-self: center;

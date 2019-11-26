@@ -16,7 +16,7 @@ body {
 .App {
     display:grid;
     grid-template-columns: [full-start] 1fr [content-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [content-end] 1fr [full-end];
-    grid-template-rows: min-content 55vh repeat(10, min-content);
+    grid-template-rows: min-content 80vh repeat(10, min-content);
 }
 
 .button-todo {

@@ -2,6 +2,7 @@
     display: grid;
     margin: 3rem;
     grid-column: content-start/ content-end;
+    grid-template-columns: [content-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [content-end];
     grid-template-rows: min-content min-content;
     grid-gap: 4rem;
     justify-content: center;
@@ -9,14 +10,24 @@
 
 .category-buttons {
     display: grid;
+    grid-column: content-start / content-end;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 0.2fr));
     grid-gap: 4rem;
     justify-content: center;
 }
 
 .category-add {
+    grid-column: content-start / content-end;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr min-content min-content 1fr;
     grid-gap: 2rem;
-    justify-content: center;
 }
+
+.field-add-category{
+    grid-column: 2 / 3;
+}
+
+.button-add-category{
+    grid-column: 3 / 4;
+}
+

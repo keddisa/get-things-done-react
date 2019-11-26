@@ -1,17 +1,21 @@
 import React from 'react';
 import TodoCard from './todo-card';
 import { connect } from 'react-redux';
-import { getAllTasks, getTasksByCategory, deleteCategory } from '../actions';
+import { Link } from 'react-router-dom';
+
+import { getAllTasks, showForm } from '../actions';
 
 const TodoList = (props) => {
     React.useEffect(()=>{
-        props.getAllTasks();     
-    }, [])
+        if(props.auth.userId) {
+            props.getAllTasks(props.auth.userId);  
+        }
+    }, [props.auth.userId])
 
     const renderRemoveCategoryButton = () => {
         if(props.selectedCategory) {
-        return <div className="remove-category-button">
-                <button className ="button-todo-light" onClick={() => props.deleteCategory(props.selectedCategory.id)}>Remove {props.selectedCategory.name} category</button>
+        return <div className="todo-list-button">
+                <Link to={`/delete/category/${props.selectedCategory.id}`} className="button-todo-light">Remove {props.selectedCategory.name} category</Link>
             </div>
         }
     }
@@ -23,7 +27,10 @@ const TodoList = (props) => {
         )
     }
     return(<div className="todo-list">
-        {renderList()}
+        <div className="todo-list-button">
+            <button className="button-todo-light" onClick={() => props.showForm()}>Add a task</button>
+        </div>
+        {props.auth.userId && renderList()}
         {renderRemoveCategoryButton()}
     </div>)
 }
@@ -31,8 +38,9 @@ const TodoList = (props) => {
 const mapStateToProps = state => {
     return {
         tasks: Object.values(state.tasks),
-        selectedCategory: state.selectedCategory
+        selectedCategory: state.selectedCategory,
+        auth: state.auth
     };
 }
 
-export default connect(mapStateToProps, { getAllTasks, getTasksByCategory, deleteCategory })(TodoList);
+export default connect(mapStateToProps, { getAllTasks, showForm })(TodoList);

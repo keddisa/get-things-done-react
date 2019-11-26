@@ -4,7 +4,7 @@ const InputElement = (props) => {
     let inputElement = null;
     const renderCategoryOptions = () => {
         return props.categories.map(category =>{
-            return <option key={category.key} value={category.name}>{category.name.toUpperCase()}</option>
+            return <option key={category.id} value={category.name}>{category.name.toUpperCase()}</option>
         })
     }
     let inputClass = `form-element ${!props.formvalidation[props.name].valid && props.formvalidation[props.name].touched ? 'form-error' : ''}`

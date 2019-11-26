@@ -2,17 +2,21 @@
     display: grid;
     grid-column: content-start / content-end;
     grid-template-columns: 1fr 20rem 1fr;
-    grid-template-rows: 1fr 15rem 1fr;
+    grid-template-rows: 1fr 15rem 1fr 1fr;
     background-color: transparent;
 }
 
 .modal-box {
-    background-color: lightgray;
+    background-color: $color-primary-dark-inverted-lighter;
     grid-column: 2 / 3;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
     display: grid;
     grid-template-rows: 1fr 1fr;
     border-radius: 1rem;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
 }
 
 .modal-text {

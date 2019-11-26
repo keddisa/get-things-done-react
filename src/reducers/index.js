@@ -24,6 +24,8 @@ const tasksReducer = (state={}, action) => {
 const selectedTaskReducer = (selectedTask=null, action) => {
     if (action.type === 'SELECT_TASK') {
         return action.payload;
+    } else if(action.type === 'CLEAR_TASK') {
+        return null;
     }
     return selectedTask;
 }
@@ -50,9 +52,31 @@ const selectedCategoryReducer = (selectedCategory=null, action) => {
     return selectedCategory;
 }
 
+const authReducer = (state={isSignedIn: null, userId: null}, action) => {
+    switch(action.type) {
+        case 'SIGN_IN':
+            return {...state, isSignedIn: true, userId: action.payload};
+        case 'SIGN_OUT':
+            return {...state, isSignedIn: false, userId: null};
+        default:
+            return state;
+    }
+}
+
+const showFormReducer = (showForm=false, action) => {
+    if(action.type === 'SHOW_FORM') {
+        return true;
+    } else if(action.type === 'HIDE_FORM') {
+        return false;
+    }
+    return showForm;
+}
+
 export default combineReducers ({
     tasks: tasksReducer,
     selectedTask: selectedTaskReducer,
     categories: categoriesReducer,
-    selectedCategory: selectedCategoryReducer
+    selectedCategory: selectedCategoryReducer,
+    showForm: showFormReducer,
+    auth: authReducer
 });

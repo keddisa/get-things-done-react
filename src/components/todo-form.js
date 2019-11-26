@@ -2,12 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import InputElement from './input-element';
-import { addTask, editTask, getAllCategories } from '../actions';
+import { addTask, editTask, getAllCategories, hideForm } from '../actions';
 
 const TodoForm = (props) => {
     React.useEffect(()=>{
+        setFormValues({
+            title, description, deadline, status, priority, category, id, creatorId: props.userId
+        })
         props.getAllCategories();
-    },[])
+    },[props.userId])
     let title = "";
     let description = "";
     let deadline = "";
@@ -15,9 +18,14 @@ const TodoForm = (props) => {
     let priority = 1;
     let category = "";
     let id = null;
+    let creatorId = props.userId;
+    let isFormValid = false;
+    
+    let [activeButton, setActiveButton] = React.useState(false)
+
 
     let [formValues, setFormValues] = React.useState({
-        title, description, deadline, status, priority, category, id
+        title, description, deadline, status, priority, category, id, creatorId
     })
     let [formValidation, setFormValidation] = React.useState({
         title: {
@@ -76,7 +84,7 @@ const TodoForm = (props) => {
             touched: false
         }
     })
-    let [isFormValid, setIsFormValid] = React.useState(false)
+   
     React.useEffect(() => {
         if(props.selectedTask) {
             setFormValues({
@@ -86,17 +94,22 @@ const TodoForm = (props) => {
                 status: props.selectedTask.status, 
                 priority: props.selectedTask.priority, 
                 category: props.selectedTask.category, 
-                id: props.selectedTask.id
+                id: props.selectedTask.id,
+                creatorId: props.userId
             })
+            setActiveButton(true);
         } 
     },[props.selectedTask])
 
     const onSubmitForm = event => {
         event.preventDefault();
-        if (formValues.id) {
-            props.editTask(formValues)
-        } else {
-            props.addTask(formValues)
+        if (formValues.creatorId) {
+            if (formValues.id) {
+                props.editTask(formValues)
+            } else {
+                props.addTask(formValues)
+            }
+            props.hideForm();
         }
     }
 
@@ -109,15 +122,11 @@ const TodoForm = (props) => {
             = checkValidity(updatedFormValidation[e.target.name], updatedFormValues[e.target.name])
         updatedFormValidation[e.target.name].touched = true;
         setFormValidation({...updatedFormValidation});
-        setIsFormValid(true);
-        setTimeout(function(){ 
-            console.log(isFormValid)
-            Object.keys(formValidation).forEach(inputElement => {
-                setIsFormValid(formValidation[inputElement].valid && isFormValid)
-            })
-            console.log(isFormValid)
-        }, 1000);
-        
+        isFormValid = true;
+        Object.keys(formValidation).forEach(inputElement => {
+            isFormValid = formValidation[inputElement].valid && isFormValid
+        })
+        setActiveButton(isFormValid)
         
         
     }
@@ -142,14 +151,15 @@ const TodoForm = (props) => {
         return isValid;
     }
 
-    return(<form className="todo-form" onSubmit={onSubmitForm} id="form">
+    return(<form className="todo-form" onSubmit={onSubmitForm}>
         <InputElement onChange={onInputChange} value={formValues.title} formvalidation={formValidation} name="title" type="text" placeholder="e.g. Eat Breakfast"/>
         <InputElement onChange={onInputChange} value={formValues.description} formvalidation={formValidation} name="description" type="text" placeholder="e.g. mix cereal and milk in a bowl"/>
         <InputElement onChange={onInputChange} value={formValues.deadline} formvalidation={formValidation} name="deadline" type="date"/>
         <InputElement onChange={onInputChange} value={formValues.status} formvalidation={formValidation} name="status" type="text" placeholder="e.g. About to start"/>
         <InputElement onChange={onInputChange} value={formValues.priority} formvalidation={formValidation} name="priority" type="number" placeholder="This is anumber"/>
         <InputElement onChange={onInputChange} value={formValues.category} formvalidation={formValidation} inputtype="dropdown" categories={props.categories} name="category" type="text" placeholder="e.g. Professional/ Personal"/>
-        <button className="button-todo-dark" disabled={!isFormValid} style={{height:'3rem', alignSelf:'end'}}>Done</button>
+        <button className="button-todo-dark" disabled={!activeButton} style={{height:'3rem', alignSelf:'end'}}>Submit</button>
+        <a className="button-todo-light" onClick={()=>props.hideForm()}>Cancel</a>
     </form>)
 }
 
@@ -157,8 +167,9 @@ const mapStateToProps = state => {
     return {
         tasks: Object.values(state.tasks),
         selectedTask: state.selectedTask,
-        categories: Object.values(state.categories)
+        categories: Object.values(state.categories),
+        userId: state.auth.userId
     };
 }
 
-export default connect(mapStateToProps, { addTask, editTask, getAllCategories })(TodoForm);
+export default connect(mapStateToProps, { addTask, editTask, getAllCategories, hideForm })(TodoForm);

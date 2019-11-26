@@ -1,5 +1,55 @@
-.navbar {
+.nav-bar {
+    display: grid; 
     grid-column: content-start / content-end;
-    justify-items: center;
-    align-content: center;
+    grid-template-columns: 30rem 1fr 30rem;
+    z-index: 999;
+    max-height: 0rem;
+    width: 100%;
+    background: none;
+    overflow: hidden;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    top: -100px;
+    margin-top: 1rem;
+    opacity: 0;
+}
+
+.stickybar {
+    display: grid; 
+    grid-column: content-start / content-end;
+    grid-template-columns: 30rem 1fr max-content;
+    z-index: 999;
+    width: 100%;
+    padding: 1rem 2rem;
+    overflow: hidden;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    top: -100px;
+    margin-top: 1rem;
+    opacity: 0;
+    position: sticky;
+    max-height: 4rem;
+    background-color: rgba(255, 255, 255, 0.93);
+    opacity: 1;
+    top: 1rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid gainsboro;
+}
+
+.nav-logo {
+    width: 4rem;
+    margin-bottom: 1rem;
+    align-self: top;
+}
+
+.nav-auth {
+    grid-column-end: -1;
+    padding: .7rem 0;
+    margin-right: 3rem;
+    color: $color-navigation-text;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    align-self: top;
+    cursor: pointer;
+    justify-self: right;
 }

@@ -5,20 +5,20 @@ import { getAllTasks, getTasksByCategory, getAllCategories, addCategory, selectC
 
 const TodoCategories = (props) => {
     React.useEffect(()=>{
-        props.getAllCategories();     
+        props.getAllCategories(props.userId);     
     }, [])
 
     let [category, setCategory] = React.useState('')
 
     const renderCategoryButtons = () => {
         return props.categories.map(category => {
-    return <button key={category.id} className="button-todo-dark" onClick={() => {props.getTasksByCategory(`${category.name}`); props.selectCategory(`${category.id}`)}}>{category.name}</button>
+    return <button key={category.id} className="button-todo-dark" onClick={() => {props.getTasksByCategory(`${category.name}`, category.creatorId); props.selectCategory(`${category.id}`)}}>{category.name}</button>
         })
     }
 
     const onSubmitCategory = (e) => {
         e.preventDefault();
-        props.addCategory({name: category})
+        props.addCategory({name: category, creatorId: props.userId})
     }
 
     return(<div className="todo-categories">
@@ -27,15 +27,18 @@ const TodoCategories = (props) => {
             {renderCategoryButtons()}
         </div>
         <form className="category-add" onSubmit={onSubmitCategory}>
-            <input onChange={e => setCategory(e.target.value)} value={category} name="category" type="text" placeholder="e.g. Work Stuff" className="form-element"/>
-            <button className="button-todo-light">Add a category</button>
-        </form>
+            <div className="field-add-category">
+                <input onChange={e => setCategory(e.target.value)} value={category} name="category" type="text" placeholder="e.g. Work Stuff" className="form-element"/>
+            </div>
+            <button className="button-todo-light button-add-category">Add a category</button>
+        </form> 
         </div>)
 }
 
 const mapStateToProps = state => {
     return {
-        categories: Object.values(state.categories)
+        categories: Object.values(state.categories),
+        userId: state.auth.userId
     }
 }
 

@@ -1,8 +1,8 @@
 import todoAPI from '../api/java-todo-api'
 import history from '../history'
 
-export const getAllTasks = () => async dispatch => {
-    const response = await todoAPI.get('/tasks/');
+export const getAllTasks = userId => async dispatch => {
+    const response = await todoAPI.post('/tasks/', userId);
     dispatch ({
         type: "GET_TASKS",
         payload: response.data
@@ -17,10 +17,14 @@ export const selectTask = id => async dispatch => {
     });
 }
 
+export const clearSelectedTask = () => {
+    return {
+        type: "CLEAR_TASK"
+    }
+}
 
-
-export const getTasksByCategory = (category) => async dispatch => {
-    const response = await todoAPI.get(`/tasks/category/${category}`);
+export const getTasksByCategory = (category, creatorId) => async dispatch => {
+    const response = await todoAPI.post(`/tasks/category/${category}`, creatorId);
     dispatch ({
         type: "GET_CATEGORY",
         payload: response.data
@@ -43,7 +47,8 @@ export const selectCategory = id => async dispatch =>{
 }
 
 export const addTask = task => async dispatch => {
-    const response = await todoAPI.post('/tasks/', task);
+    console.log(task)
+    const response = await todoAPI.post('/tasks/new', task);
     dispatch ({
         type: "ADD_TASK",
         payload: response.data
@@ -58,6 +63,7 @@ export const editTask = task => async dispatch => {
         payload: response.data
     });
     history.push('/')
+    clearSelectedTask()
 }
 
 export const incrementPriority = task => async dispatch => {
@@ -105,8 +111,8 @@ export const deleteTask = id => async dispatch => {
     history.push('/');
 }
 
-export const getAllCategories = () => async dispatch => {
-    const response = await todoAPI.get('/categories/');
+export const getAllCategories = userId => async dispatch => {
+    const response = await todoAPI.post('/categories/', userId);
     dispatch ({
         type: "GET_CATEGORIES",
         payload: response.data
@@ -114,7 +120,7 @@ export const getAllCategories = () => async dispatch => {
 }
 
 export const addCategory = category => async dispatch => {
-    const response = await todoAPI.post('/categories/', category);
+    const response = await todoAPI.post('/categories/new', category);
     dispatch ({
         type: "ADD_CATEGORY",
         payload: response.data
@@ -129,4 +135,31 @@ export const deleteCategory = id => async dispatch => {
         payload: response.data
     });
     history.push('/');
+}
+
+export const signIn = (id) => {
+    history.push('/')
+    return {
+        type: "SIGN_IN",
+        payload: id
+    }
+}
+
+export const signOut = () => {
+    history.push('/')
+    return {
+        type: "SIGN_OUT"
+    }
+}
+
+export const showForm = () => {
+    return {
+        type: "SHOW_FORM"
+    }
+}
+
+export const hideForm = () => {
+    return {
+        type: "HIDE_FORM"
+    }
 }
