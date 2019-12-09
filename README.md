@@ -1,4 +1,4 @@
-#This project is a personal todo list task manager utilizing React/ Redux on the frontend and Java/ Spring Boot/ SQL on the backend
+#This project is a personal todo list task manager utilizing React/ Redux on the frontend and Java/ Spring Boot (for the api)/ SQL on the backend
 
 ## Frontend Features
 
